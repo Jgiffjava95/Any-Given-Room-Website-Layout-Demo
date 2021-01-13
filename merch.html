@@ -1,0 +1,124 @@
+<!-- Shopping Cart Nav -->
+<nav class="navbar navbar-expand justify-content-center"
+	ng-init="getInventory()">
+	<a type="button" class="fas fa-shopping-cart fa-3x navTextPink my-3"
+		data-toggle="modal" data-target="#cartModal"></a>
+</nav>
+<!-- Item Display -->
+<div class="merchBG">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-sm-3 my-3" ng-repeat="i in items">
+				<div class="card text-center">
+					<div class="card-header">{{i.itemName}}</div>
+					<div class="card-body">
+						<img class="responsiveBioImg" src="./images/vintageLogo.jpg">
+					</div>
+					<div class="card-footer">
+						<div class="container">
+							<a type="button" class="far fa-eye fa-3x gglplyIconColor"
+								ng-click="selectItemForItemModal(i)" data-toggle="modal"
+								data-target="#itemModal"></a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- Cart Modal -->
+<div class="modal fade" id="cartModal">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Shopping Cart</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="container">
+					<div>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Item</th>
+									<th>Quantity</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="sci in shoppingCart">
+									<td>{{sci.itemName}} - {{sci.selectedOptionSize}}</td>
+									<td>{{N/A}}</td>
+									<td>{{sci.itemPrice}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Check
+					Out</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- Item Modal -->
+<div class="modal fade" id="itemModal">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">{{selectedModalItem.itemName}}</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-6">
+							<img class="responsiveBioImg" src="./images/vintageLogo.jpg">
+						</div>
+						<div class="col-sm-6">{{selectedModalItem.itemDesc}}</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<nav class="navbar navbar-expand">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item" id="sizesOptions">
+							<select ng-model="selectedOptionSize">
+								<option ng-repeat="ddc in dropDownContent">{{ddc}}</option>
+								{{selectedOptionSize}}
+							</select>
+
+						</li>
+						<li class="nav-item"><b>${{selectedModalItem.itemPrice}}</b>
+							USD</li>
+						<li class="nav-item"><a type="button"
+							class="fas fa-shopping-cart navTextPink fa-2x"
+							ng-click="addToCart()"></a></li>
+					</ul>
+
+				</nav>
+			</div>
+		</div>
+
+	</div>
+</div>
